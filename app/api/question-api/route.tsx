@@ -8,19 +8,27 @@ export const POST = async (req: Request) => {
     const responseText = await result.response.text();
     const parsedResult = JSON.parse(responseText);
     return NextResponse.json({ result: parsedResult });
-  } catch (error: any) {
-    if (error.response) {
-      console.error("Error status:", error.response.status);
-      console.error("Error details:", error.response.data?.errorDetails);
+  } catch (error: unknown) {
+    if (error instanceof Error && "response" in error) {
+      const apiError = error as {
+        response: {
+          status: number;
+          data?: { errorDetails?: Array<{ fieldViolations: unknown }> };
+        };
+      };
+      console.error("Error status:", apiError.response.status);
+      console.error("Error details:", apiError.response.data?.errorDetails);
 
       // Log field violations if they exist
-      if (error.response.data?.errorDetails) {
-        error.response.data.errorDetails.forEach((detail: any) => {
+      if (apiError.response.data?.errorDetails) {
+        apiError.response.data.errorDetails.forEach((detail) => {
           console.error("Field Violations:", detail.fieldViolations);
         });
       }
+    } else if (error instanceof Error) {
+      console.error("Error processing request:", error.message);
     } else {
-      console.error("Error processing request:", error.message || error);
+      console.error("Error processing request:", String(error));
     }
 
     return NextResponse.json(
