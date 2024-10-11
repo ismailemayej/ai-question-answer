@@ -1,6 +1,5 @@
 "use client";
 import CustomLoading from "./_components/CustomLoading";
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -23,10 +22,7 @@ export default function HomePage() {
   type Inputs = {
     textfield: string;
   };
-  const [parsedResponse, setParsedResponse] = useState<ResponseData | null>(
-    null
-  );
-  console.log(parsedResponse);
+
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<ResponseData | null>(null);
@@ -44,7 +40,6 @@ export default function HomePage() {
       });
       console.log("res.data.result", res.data.result);
       setResponse(res.data.result);
-      setParsedResponse(res.data.result);
     } catch (error) {
       console.error("Error:", error);
       setError("An error occurred while processing your request.");
@@ -68,7 +63,7 @@ export default function HomePage() {
         </div>
       )}
       {response ? (
-        <div className="mt-8 p-3 bg-[#010111] lg:p-8 border border-gray-600 rounded-xl w-full max-w-full">
+        <div className="mt-8 p-3 bg-[#010111] lg:p-8 border border-gray-600 rounded-xl w-full">
           {response.question && (
             <>
               <h2 className="text-2xl font-bold mb-4 text-gray-300">
@@ -116,18 +111,21 @@ export default function HomePage() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex gap-2 items-center justify-center my-8"
+        className=" w-full flex gap-2 items-center justify-center my-8 mx-20"
       >
-        <Textarea
-          {...register("textfield", { required: true })}
-          placeholder="Enter Only islamic question"
-          className="w-full shadow-[#ffffff] shadow-inner"
-        />
-        {errors.textfield && (
-          <p className="text-red-500 text-sm">
-            Please enter a valid Islamic question.
-          </p>
-        )}
+        <div className="container">
+          <Textarea
+            {...register("textfield", { required: true })}
+            placeholder="Enter Only islamic question"
+            className="w-full shadow-[#ffffff] shadow-inner"
+          />
+          {errors?.textfield && (
+            <p className="text-red-500 text-sm mt-1">
+              Please enter a valid Islamic question.
+            </p>
+          )}
+        </div>
+
         <Button
           type="submit"
           className="w-24 flex gap-1 py-7 shadow-[#ffffff] shadow-inner"
