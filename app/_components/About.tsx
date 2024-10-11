@@ -14,7 +14,7 @@ const About: React.FC = () => {
               src={me}
               alt="Md Ismaile Hossain"
               width={800}
-              height={800}
+              height={820}
               className="rounded-full mx-auto -mt-24"
             />
           </div>
