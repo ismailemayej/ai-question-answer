@@ -1,101 +1,134 @@
-import Image from "next/image";
+"use client";
+import CustomLoading from "./components/CustomLoading";
 
-export default function Home() {
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Textarea } from "@/components/ui/textarea";
+import axios from "axios";
+import { SquareChevronRight } from "lucide-react";
+import NoQuestion from "./components/NoQuestion";
+
+interface ResponseData {
+  question: string;
+  answer: string;
+  references: string[];
+}
+export default function HomePage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  type Inputs = {
+    textfield: string;
+  };
+  const [parsedResponse, setParsedResponse] = useState<ResponseData | null>(
+    null
+  );
+  const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState<ResponseData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleQuestion = async () => {
+    const promptData = `You will search the Islamic question and answer web sites and from there you will find the answer to the question of the questioner and give the answer in the language of the questioner.If asked a question other than an Islamic question, you say "Ask me an Islamic question.". When the answer is given, it will be divided into 3 parts and given in json format. If there are any references in support of your answer which you can find on the mentioned site then please mention them. Or you won't mention it. 1. question, 2. answer, 3. references. The references should be from the Quran, Hadith and various Islamic tafsirs. For example: {"question": "...", "answer": "...", "references": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}. question: ${inputValue} or If they tell you who made you, or ask questions about this site, say Md. Ismail Hossain. Web Developer, mobile:01858226967, email:ismaile535@gmail.com`;
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
+    try {
+      const res = await axios.post("/api/question-api", {
+        prompt: promptData,
+      });
+      console.log("res.data.result", res.data.result);
+      setResponse(res.data.result);
+      setParsedResponse(res.data.result);
+    } catch (error) {
+      console.error("Error:", error);
+      setError("An error occurred while processing your request.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setInputValue(data.textfield);
+    handleQuestion();
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="flex flex-col items-center justify-between mx-3 lg:mx-8 md:mx-5 my-8 overflow-x-hidden">
+      <CustomLoading loading={loading} />
+      {error && (
+        <div className="mt-4 p-4 bg-[#010111] border border-red-400 text-white rounded-md">
+          <p className="font-semibold">Error:</p>
+          <p>{error}</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      )}
+      {response ? (
+        <div className="mt-8 p-3 bg-[#010111] lg:p-8 border border-gray-600 rounded-xl w-full max-w-full">
+          {response.question && (
+            <>
+              <h2 className="text-2xl font-bold mb-4 text-gray-300">
+                Question
+              </h2>
+              <div className="p-6 rounded-lg shadow-[#ffffff] shadow-inner">
+                <p className="leading-relaxed break-words">
+                  {response.question}
+                </p>
+              </div>
+            </>
+          )}
+
+          {response.answer && (
+            <>
+              <h2 className="text-2xl font-bold mb-4 mt-4 text-gray-300">
+                Answer
+              </h2>
+              <div className="bg-[#010111] shadow-[#ffffff] p-6 rounded-lg shadow-inner">
+                <p className="text-white leading-relaxed break-words">
+                  {response.answer}
+                </p>
+              </div>
+            </>
+          )}
+
+          {response.references && response.references.length > 0 && (
+            <div className="mt-6 mx-2">
+              <h3 className="text-xl font-semibold mb-2 text-gray-300">
+                References
+              </h3>
+              <ul className="list-disc list-inside text-white">
+                {response.references.map((ref: string, index: number) => (
+                  <li key={index} className="mb-1 break-words">
+                    {ref}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ) : (
+        <NoQuestion />
+      )}
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full flex gap-2 items-center justify-center my-8"
+      >
+        <Textarea
+          {...register("textfield", { required: true })}
+          placeholder="Enter Only islamic question"
+          className="w-full shadow-[#ffffff] shadow-inner"
+        />
+        <Button
+          type="submit"
+          className="w-24 flex gap-1 py-7 shadow-[#ffffff] shadow-inner"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          Ask <SquareChevronRight className="w-7 h-7" />
+        </Button>
+      </form>
+    </main>
   );
 }
