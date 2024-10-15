@@ -7,7 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { SquareChevronRight } from "lucide-react";
 import NoQuestion from "./_components/NoQuestion";
-
 interface ResponseData {
   question: string;
   answer: string;
@@ -22,24 +21,25 @@ export default function HomePage() {
   type Inputs = {
     textfield: string;
   };
-
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const handleQuestion = async () => {
-    const promptData = `You will search the Islamic question and answer web sites and from there you will find the answer to the question of the questioner and give the answer in the language of the questioner.If asked a question other than an Islamic question, you say "Ask me an Islamic question.". When the answer is given, it will be divided into 3 parts and given in json format. If there are any references in support of your answer which you can find on the mentioned site then please mention them. Or you won't mention it. 1. question, 2. answer, 3. references. The references should be from the Quran, Hadith and various Islamic tafsirs. For example: {"question": "...", "answer": "...", "references": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}. question: ${inputValue} or If they tell you who made you, or ask questions about this site, say Md. Ismail Hossain. Web Developer, mobile:01858226967, email:ismaile535@gmail.com`;
+  const handleQuestion = async ({ value }: { value: string | any }) => {
+    const promptData = `You will search the Islamic question and answer web sites and from there you will find the answer to the question of the questioner and give the answer in the language of the questioner.If asked a question other than an Islamic question, you say "Ask me an Islamic question.". When the answer is given, it will be divided into 3 parts and given in json format. If there are any references in support of your answer which you can find on the mentioned site then please mention them. Or you won't mention it. 1. question, 2. answer, 3. references. The references should be from the Quran, Hadith and various Islamic tafsirs. For example: {"question": "...", "answer": "...", "references": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}. question: ${value} or If they tell you who made you, or ask questions about this site, say Md. Ismail Hossain. Web Developer, mobile:01858226967, email:ismaile535@gmail.com`;
     setLoading(true);
     setError(null);
-    setResponse(null);
+    // setResponse(null);
 
     try {
-      const res = await axios.post("/api/question-api", {
-        prompt: promptData,
-      });
-      console.log("res.data.result", res.data.result);
-      setResponse(res.data.result);
+      if (value) {
+        const res = await axios.post("/api/question-api", {
+          prompt: promptData,
+        });
+        setResponse(res.data.result);
+        setInputValue(res.data.result.question);
+      }
+      // Automatically fill the input box with the response question
     } catch (error) {
       console.error("Error:", error);
       setError("An error occurred while processing your request.");
@@ -47,10 +47,9 @@ export default function HomePage() {
       setLoading(false);
     }
   };
-
+  const valuee = response?.question === inputValue;
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setInputValue(data.textfield);
-    handleQuestion();
+    handleQuestion({ value: data.textfield });
   };
 
   return (
@@ -111,13 +110,14 @@ export default function HomePage() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className=" w-full flex gap-2 items-center justify-center my-8 mx-20"
+        className="w-full flex gap-2 items-center justify-center my-8 mx-20"
       >
         <div className="container">
           <Textarea
             {...register("textfield", { required: true })}
             placeholder="Enter Only islamic question"
             className="w-full shadow-[#ffffff] shadow-inner"
+            // defaultValue={inputValue}
           />
           {errors?.textfield && (
             <p className="text-red-500 text-sm mt-1">
@@ -125,7 +125,6 @@ export default function HomePage() {
             </p>
           )}
         </div>
-
         <Button
           type="submit"
           className="w-24 flex gap-1 py-7 shadow-[#ffffff] shadow-inner"

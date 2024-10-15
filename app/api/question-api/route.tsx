@@ -18,7 +18,6 @@ export const POST = async (req: Request) => {
       };
       console.error("Error status:", apiError.response.status);
       console.error("Error details:", apiError.response.data?.errorDetails);
-
       // Log field violations if they exist
       if (apiError.response.data?.errorDetails) {
         apiError.response.data.errorDetails.forEach((detail) => {
@@ -30,9 +29,11 @@ export const POST = async (req: Request) => {
     } else {
       console.error("Error processing request:", String(error));
     }
-
     return NextResponse.json(
-      { error: "An error occurred while processing the request" },
+      {
+        error:
+          "An error occurred while processing the request to server response.please wail few seconds",
+      },
       { status: 500 }
     );
   }

@@ -1,22 +1,22 @@
 "use client";
-
+import { OctagonAlert } from "lucide-react";
 import React from "react";
-
 export default function NoQuestion() {
   return (
     <div className="flex text-white flex-col items-center justify-center mx-3 lg:mx-8 md:mx-5 my-8 bg-[#010111] shadow-lg shadow-[#ffffff]">
       <div className="w-full max-w-2xl text-white p-4 bg-[#010111] rounded-lg shadow-md">
         <h1 className="lg:text-3xl text-2xl font-bold  text-white mb-4">
-          Welcome to Islamic Question & Answer AI
+          Welcome to Islamic Question and Answer AI
         </h1>
         <p className="text-lg text-white mb-4">
           Ask any Islamic question and get an answer. To get started, please
           enter your question in the input box above.
         </p>
-        <div className="bg-[#010111] border-l-4 border-blue-500 p-4 mb-6">
-          <p className="text-white">
-            Tip: For the best results, be specific in your questions and provide
-            context when necessary.
+        <div className="bg-[#010111] border-l-4 border-red-500 p-4 mb-6">
+          <p className="text-white flex gap-2 items-center">
+            <OctagonAlert className=" size-16 " color="#ff0000" />
+            Warning: Islamic FAQ is very Sensetive Without Mufti its prohibited
+            to give fatwa. so please be carefull.
           </p>
         </div>
         <div className="flex items-center justify-center">
