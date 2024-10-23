@@ -6,13 +6,13 @@ import Image from "next/image";
 const CustomLoading = ({ loading }: { loading: boolean }) => {
   return (
     <AlertDialog open={loading}>
-      <AlertDialogContent className="bg-transparent border-none rounded-none flex justify-center items-center">
+      <AlertDialogContent className="bg-transparent  border-none rounded-none flex justify-center items-center">
         <Image
           src={loadingIcon}
           alt="loading"
-          width={150}
-          height={150}
-          className="rounded-xl bg-transparent"
+          width={200}
+          height={200}
+          className="rounded-xl text-3xl bg-transparent"
         />
       </AlertDialogContent>
     </AlertDialog>

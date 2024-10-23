@@ -1,5 +1,10 @@
 import About from "../_components/About";
+import Table from "../_components/Dashboard";
 
 export default function AboutPage() {
-  return <About />;
+  return (
+    <div>
+      <About />
+    </div>
+  );
 }
