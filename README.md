@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fatwa with AI
 
-## Getting Started
+[![Website](https://img.shields.io/website?url=https://fatwa-with-ai.vercel.app)](https://fatwa-with-ai.vercel.app/)
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Fatwa with AI** is a web application designed to assist users in obtaining Islamic legal opinions (fatwas) through the power of artificial intelligence. The platform enables users to input questions and receive responses based on relevant Islamic teachings, making it easier to seek guidance in various matters of life.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The site is built with a user-friendly interface and leverages AI models to provide thoughtful answers while ensuring Islamic guidelines are respected. Users can interact with the AI to inquire about general or specific issues in real-time.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **AI-Powered Responses**: The app uses an AI model to generate responses based on Islamic principles.
+- **Simple User Interface**: Easy-to-navigate interface for quick and hassle-free interaction.
+- **Real-Time Fatwa Generation**: Provides responses on demand, covering various topics.
+- **Respect for Islamic Guidelines**: All generated responses align with Islamic jurisprudence (fiqh).
+- **Continuous Learning**: The AI improves its understanding over time to provide better responses.
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js
+- **Backend**: Node.js
+- **Deployment**: Vercel
+- **AI Models**: Integrated AI models for generating fatwas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run this project locally, follow these steps:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/fatwa-with-ai.git
