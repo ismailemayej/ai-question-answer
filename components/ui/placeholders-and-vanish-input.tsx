@@ -1,6 +1,6 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface PlaceholderInputProps {
   placeholders: string[];
@@ -11,21 +11,21 @@ export function PlaceholderInput({ placeholders }: PlaceholderInputProps) {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Function to start animation of placeholders cycling
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     intervalRef.current = setInterval(() => {
       setCurrentPlaceholder((prev) => (prev + 1) % placeholders.length);
     }, 3000);
-  };
+  }, [placeholders.length]);
 
   // Handle tab visibility changes
-  const handleVisibilityChange = () => {
+  const handleVisibilityChange = useCallback(() => {
     if (document.visibilityState !== "visible" && intervalRef.current) {
       clearInterval(intervalRef.current); // Clear interval when tab is hidden
       intervalRef.current = null;
     } else if (document.visibilityState === "visible") {
       startAnimation(); // Restart interval when tab becomes visible
     }
-  };
+  }, [startAnimation]);
 
   // Set up effect to start animation and handle tab visibility changes
   useEffect(() => {
@@ -38,7 +38,7 @@ export function PlaceholderInput({ placeholders }: PlaceholderInputProps) {
       }
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [placeholders]);
+  }, [handleVisibilityChange, startAnimation]); // Include dependencies here
 
   return (
     <AnimatePresence mode="wait">

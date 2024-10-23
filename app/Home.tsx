@@ -6,9 +6,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { SquareChevronRight } from "lucide-react";
 import NoQuestion from "./_components/NoQuestion";
-import { PlaceholderInput } from "@/components/ui/placeholders-and-vanish-input"; // PlaceholderInput component
+import { PlaceholderInput } from "@/components/ui/placeholders-and-vanish-input"; //
 import { Questions } from "./_components/Questions";
-import { BorderMove } from "@/components/ui/moving-border";
 
 interface ResponseData {
   question: string;
@@ -20,7 +19,7 @@ export default function MainPage() {
   const {
     register,
     handleSubmit,
-    setValue, // Added to set input value
+    setValue,
     formState: { errors },
   } = useForm<Inputs>();
 

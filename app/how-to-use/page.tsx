@@ -4,7 +4,7 @@ const HowToUse = () => {
   return (
     <div className="how-to-use-section lg:mx-20 mx-5 p-4">
       <h2 className="text-2xl font-bold mb-4">
-        How to Use the "Fatwa with AI" Web App
+        How to Use the &quot;Fatwa with AI &QA Web App
       </h2>
       <div className="step mb-6">
         <h3 className="text-xl font-semibold">1. Visit the Website:</h3>
@@ -24,8 +24,8 @@ const HowToUse = () => {
         <h3 className="text-xl font-semibold">2. Ask a Question:</h3>
         <ul className="list-disc list-inside">
           <li>
-            On the homepage, you'll find a search bar where you can type your
-            Islamic question.
+            On the homepage, you&apos;ll find a search bar where you can type
+            your Islamic question.
           </li>
           <li>
             Type your question clearly, then press <strong>Enter</strong> or
@@ -38,16 +38,16 @@ const HowToUse = () => {
         <h3 className="text-xl font-semibold">3. Get an Answer:</h3>
         <p>
           Once your question is submitted, the AI system will generate a
-          response based on authentic Islamic sources. You’ll see the answer
-          displayed on the same page, giving you a detailed explanation.
+          response based on authentic Islamic sources. You&apos;ll see the
+          answer displayed on the same page, giving you a detailed explanation.
         </p>
       </div>
 
       <div className="step mb-6">
         <h3 className="text-xl font-semibold">4. Browse Common Questions:</h3>
         <p>
-          If you’re unsure what to ask, scroll through the list of common or
-          recent questions on the homepage. You can click on any question to
+          If you&apos;re unsure what to ask, scroll through the list of common
+          or recent questions on the homepage. You can click on any question to
           view its detailed answer.
         </p>
       </div>
@@ -56,7 +56,7 @@ const HowToUse = () => {
         <h3 className="text-xl font-semibold">5. Explore Categories:</h3>
         <p>
           The website is organized into different categories like{" "}
-          <strong>Prayer (Salah)</strong>,<strong> Fasting (Sawm)</strong>,{" "}
+          <strong>Prayer (Salah)</strong>, <strong>Fasting (Sawm)</strong>,{" "}
           <strong>Zakat</strong>, etc. You can browse these categories to find
           questions and answers related to specific Islamic topics.
         </p>
@@ -80,4 +80,5 @@ const HowToUse = () => {
     </div>
   );
 };
+
 export default HowToUse;
