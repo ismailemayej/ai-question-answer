@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const HowToUse = () => {
@@ -9,13 +10,13 @@ const HowToUse = () => {
       <div className="step mb-6">
         <h3 className="text-xl font-semibold">1. Visit the Website:</h3>
         <p>
-          Go to{" "}
-          <a
+          Go to
+          <Link
             href="https://fatwa-with-ai.vercel.app"
             className="text-blue-500 underline"
           >
             Fatwa with AI
-          </a>{" "}
+          </Link>
           to start exploring.
         </p>
       </div>

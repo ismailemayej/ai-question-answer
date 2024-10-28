@@ -25,17 +25,17 @@ export default function MainPage() {
 
   type Inputs = {
     textfield: string;
-    language: string; // Include language in inputs
+    language: string;
   };
 
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState("en"); // State for selected language
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   const handleQuestion = async ({ textfield, language }: Inputs) => {
-    const promptData = `You will search the Islamic question and answer web sites and from there you will find the answer to the question of the questioner and give the answer in the language of the questioner, which is ${language}. If asked a question other than an Islamic question, you say "Ask me an Islamic question.". When the answer is given, it will be divided into 3 parts and given in json format. If there are any references in support of your answer which you can find on the mentioned site then please mention them. Or you won't mention it. 1. question, 2. answer, 3. references. The references should be from the Quran, Hadith and various Islamic tafsirs. For example: {"question": "...", "answer": "...", "references": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}. question: ${textfield}`;
+    const promptData = `You will search the Islamic question and answer web sites and from there you will get the answer to the question of the questioner and answer in the language of the questioner, which is ${language}.  If a question other than an Islamic question is asked, you say "Ask me only Islamic questions."  Will not answer any questions other than Islamic questions.  When answered, it will be divided into 3 parts and given in json format.  If you have any references in support of your answer which you can find on the mentioned site please cite them.  Or you don't mention it.  1. Questions, 2. Answers, 3. References.  References should be to Quran, Hadith and various Islamic commentaries.  For example: {"Question": "...", "Answer": "...", "Reference": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}.  query: ${textfield}.Someone asks who made you.You will say that Md. Ismail Hossain made me.`;
 
     setLoading(true);
     setError(null);
