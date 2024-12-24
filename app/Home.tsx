@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import { SquareChevronRight } from "lucide-react";
+import { SquareChevronRight, Copy } from "lucide-react"; // Import the copy icon
 import NoQuestion from "./_components/NoQuestion";
 import { PlaceholderInput } from "@/components/ui/placeholders-and-vanish-input"; //
 import { Questions } from "./_components/Questions";
-
+import { toast } from "sonner";
 interface ResponseData {
   question: string;
   answer: string;
@@ -35,11 +35,9 @@ export default function MainPage() {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   const handleQuestion = async ({ textfield, language }: Inputs) => {
-    const promptData = `You will search the Islamic question and answer web sites and from there you will get the answer to the question of the questioner and answer in the language of the questioner, which is ${language}.  If a question other than an Islamic question is asked, you say "Ask me only Islamic questions."  Will not answer any questions other than Islamic questions.  When answered, it will be divided into 3 parts and given in json format.  If you have any references in support of your answer which you can find on the mentioned site please cite them.  Or you don't mention it.  1. Questions, 2. Answers, 3. References.  References should be to Quran, Hadith and various Islamic commentaries.  For example: {"Question": "...", "Answer": "...", "Reference": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}.  query: ${textfield}.Someone asks who made you.You will say that Md. Ismail Hossain made me.`;
-
+    const promptData = `You will search the Islamic question and answer web sites and from there you will get the answer to the question of the questioner and answer in the language of the questioner, which is ${language}.  If a question other than an Islamic question is asked, you say "Ask me only Islamic questions."  Will not answer any questions other than Islamic questions.  When answered, it will be divided into 3 parts and given in json format.  If you have any references in support of your answer which you can find on the mentioned site please cite them.  Or you don't mention it.  1. Questions, 2. answers, 3. References.  References should be to Quran, Hadith and various Islamic commentaries.  For example: {"Question": "...", "answer": "...", "Reference": ["Surah Fatiha: 2", "Sahih Muslim: 2562"]}.  query: ${textfield}.Someone asks who made you.You will say that Md. Ismail Hossain made me.`;
     setLoading(true);
     setError(null);
-
     try {
       if (textfield) {
         const res = await axios.post("/api/question-api", {
@@ -49,10 +47,16 @@ export default function MainPage() {
         setInputValue(res.data.result.question);
       }
     } catch (error) {
-      console.error("Error:", error);
       setError("An error occurred while processing your request.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCopy = () => {
+    if (response?.answer) {
+      navigator.clipboard.writeText(response.answer);
+      toast.success("Copied to clipboard");
     }
   };
 
@@ -66,7 +70,6 @@ export default function MainPage() {
     <main className="flex flex-col items-center justify-between mx-3 lg:mx-8 md:mx-5 my-8 overflow-x-hidden">
       {/* Loading Spinner */}
       <CustomLoading loading={loading} />
-
       {/* Error Message */}
       {error && (
         <div className="mt-4 p-4 bg-[#010111] border border-red-400 text-white rounded-md">
@@ -74,29 +77,20 @@ export default function MainPage() {
           <p>{error}</p>
         </div>
       )}
-
       {/* Response Block */}
       {response ? (
-        <div className="mt-8 p-3 bg-[#010111] lg:p-8 border border-gray-600 rounded-xl w-full">
-          {response.question && (
-            <>
-              <h2 className="text-2xl font-bold mb-4 text-gray-300">
-                Question
-              </h2>
-              <div className="p-6 rounded-lg shadow-[#ffffff] shadow-inner">
-                <p className="leading-relaxed break-words">
-                  {response.question}
-                </p>
-              </div>
-            </>
-          )}
+        <div className="mt-8 p-3 bg-[#010111] border-gray-600 rounded-xl w-full">
           {response.answer && (
             <>
-              <h2 className="text-2xl font-bold mb-4 mt-4 text-gray-300">
-                Answer
-              </h2>
               <div className="bg-[#010111] shadow-[#ffffff] p-6 rounded-lg shadow-inner">
-                <p className="text-white leading-relaxed break-words">
+                <button
+                  onClick={handleCopy}
+                  className="mt-2 text-yellow-300 hover:border hover:rounded-lg hover:px-2 hover:translate-x-2 flex items-center gap-1"
+                >
+                  <Copy className="w-5 h-5 " />
+                  Copy
+                </button>
+                <p className="text-white text-xl leading-relaxed break-words">
                   {response.answer}
                 </p>
               </div>
@@ -120,9 +114,7 @@ export default function MainPage() {
       ) : (
         <NoQuestion />
       )}
-
       {/* Form with PlaceholderInput */}
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex items-center justify-center"
@@ -156,7 +148,6 @@ export default function MainPage() {
               // Hide PlaceholderInput when input is present
             }}
           />
-
           {/* PlaceholderInput: Only show if input is empty */}
           {inputValue === "" && (
             <p className="absolute top-0 left-0 w-full h-full flex items-center pl-8 text-gray-400 pointer-events-none">
