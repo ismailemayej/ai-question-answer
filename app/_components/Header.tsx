@@ -33,6 +33,7 @@ export function Navbar() {
     { name: "Quran", href: "/quran" },
     { name: "Hadith", href: "/hadith" },
     { name: "Contact", href: "/contact" },
+    { name: "❤️ Dedicate", href: "/dedicate" },
   ];
 
   if (!mounted) return null;
