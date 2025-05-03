@@ -82,7 +82,7 @@ export function Navbar() {
           </nav>
 
           {/* Right side buttons */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center">
             <Button
               variant="ghost"
               size="icon"
@@ -112,11 +112,11 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+              className="md:hidden ml-[-10px] rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 text-black dark:text-gray-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5 " />
               ) : (
                 <Menu className="h-5 w-5" />
               )}
@@ -130,7 +130,7 @@ export function Navbar() {
         <div
           className={cn(
             "md:hidden",
-            theme === "dark" ? "bg-gray-900" : "bg-white"
+            theme === "dark" ? "bg-gray-900 " : "bg-white"
           )}
         >
           <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
