@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Navbar } from "./_components/Header";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,7 +20,6 @@ export const metadata: Metadata = {
   title: "Q&A AI",
   description: "Ask any Islamic question and get the answer",
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,9 +30,11 @@ export default function RootLayout({
       <body
         className={` bg-[#010111] text-white ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Toaster />
-        <Navbar />
-        {children}
+        <ThemeProvider attribute="class">
+          <Toaster />
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

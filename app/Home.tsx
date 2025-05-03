@@ -162,7 +162,7 @@ export default function IslamicChat() {
                 }`}
                 dir={message.language === "ar" ? "rtl" : "ltr"} // RTL for Arabic
               >
-                <div className="flex gap-3">
+                <div className="flex gap-3 bangla">
                   <Avatar className="h-8 w-8 mt-0.5 flex-shrink-0">
                     <AvatarFallback
                       className={
@@ -206,7 +206,7 @@ export default function IslamicChat() {
                         {message.role === "user" ? "You" : "Islamic Scholar"}
                       </span>
                       <span
-                        className={`text-xs ${
+                        className={`text-xs min-w-32 ml-2 ${
                           message.role === "user"
                             ? "text-gray-200"
                             : theme === "dark"

@@ -43,9 +43,9 @@ export function Navbar() {
         "fixed w-full top-0 z-50 transition-all duration-300",
         scrolled
           ? theme === "dark"
-            ? "bg-gray-900/90 backdrop-blur-md border-b border-gray-800"
-            : "bg-white/90 backdrop-blur-md border-b border-gray-200"
-          : "bg-slate-50 shadow-xl border-b border-transparent"
+            ? "bg-gray-950/95 backdrop-blur-md border-b border-gray-800"
+            : "bg-white/95 backdrop-blur-md border-b border-gray-200"
+          : "bg-white dark:bg-gray-950 shadow-sm"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,30 +53,27 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <BookOpen
-                className={cn(
-                  "h-6 w-6",
-                  theme === "dark" ? "text-emerald-400" : "text-emerald-600"
-                )}
-              />
-              <span className="text-lg font-semibold text-black dark:text-white">
+              <BookOpen className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+              <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 Q&A With
               </span>
-              <span className="text-white bg-slate-400 rounded-full py-1 px-2 text-xl font-bold">
+              <span className="text-white bg-emerald-600 dark:bg-emerald-700 rounded-full py-1 px-2 text-sm font-bold">
                 AI
               </span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-emerald-600",
-                  theme === "dark" ? "text-gray-300" : "text-gray-700"
+                  "text-sm font-medium transition-colors",
+                  theme === "dark"
+                    ? "text-gray-300 hover:text-emerald-400"
+                    : "text-gray-700 hover:text-emerald-600"
                 )}
               >
                 {link.name}
@@ -85,16 +82,14 @@ export function Navbar() {
           </nav>
 
           {/* Right side buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
               className={cn(
-                "rounded-full",
-                theme === "dark"
-                  ? "text-gray-300 hover:bg-gray-800"
-                  : "text-gray-600 hover:bg-gray-100"
+                "rounded-full hover:bg-gray-200 dark:hover:bg-gray-800",
+                theme === "dark" ? "text-gray-200" : "text-gray-700"
               )}
             >
               {theme === "dark" ? (
@@ -103,10 +98,11 @@ export function Navbar() {
                 <Moon className="h-5 w-5" />
               )}
             </Button>
+
             <Link href="/">
               <Button
                 variant="default"
-                className="hidden md:flex bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="hidden md:flex bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white dark:text-gray-50"
               >
                 Ask Question
               </Button>
@@ -116,7 +112,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden rounded-full"
+              className="md:hidden rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -137,7 +133,7 @@ export function Navbar() {
             theme === "dark" ? "bg-gray-900" : "bg-white"
           )}
         >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -145,18 +141,18 @@ export function Navbar() {
                 className={cn(
                   "block px-3 py-2 rounded-md text-base font-medium",
                   theme === "dark"
-                    ? "text-gray-300 hover:bg-gray-800 hover:text-white"
-                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    ? "text-gray-200 hover:bg-gray-800 hover:text-emerald-400"
+                    : "text-gray-800 hover:bg-gray-100 hover:text-emerald-600"
                 )}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <Link href="/">
+            <Link href="/" className="block">
               <Button
                 variant="default"
-                className="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white"
+                className="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white"
               >
                 Ask Question
               </Button>
