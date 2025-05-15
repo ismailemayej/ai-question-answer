@@ -1,5 +1,5 @@
 "use client";
-import { BookOpen, Moon, Sun, Menu, X } from "lucide-react";
+import { BookOpen, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -22,11 +22,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
@@ -84,22 +79,6 @@ export function Navbar() {
 
           {/* Right side buttons */}
           <div className="flex items-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className={cn(
-                "rounded-full hover:bg-gray-200 dark:hover:bg-gray-800",
-                theme === "dark" ? "text-gray-200" : "text-gray-700"
-              )}
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-
             <Link href="/">
               <Button
                 variant="default"

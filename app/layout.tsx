@@ -18,7 +18,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Q&A AI",
-  description: "Ask any Islamic question and get the answer",
+  description: "Ask  question and get the answer",
 };
 export default function RootLayout({
   children,
