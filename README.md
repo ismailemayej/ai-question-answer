@@ -1,32 +1,37 @@
-# Fatwa with AI
+# Fatwa with AI 🕌🤖
 
-[![Website](https://img.shields.io/website?url=https://fatwa-with-ai.vercel.app)](https://fatwa-with-ai.vercel.app/)
+**Live Site:** [https://fatwa-with-ai.vercel.app](https://fatwa-with-ai.vercel.app)
 
-## Overview
+## 📌 Overview
 
-**Fatwa with AI** is a web application designed to assist users in obtaining Islamic legal opinions (fatwas) through the power of artificial intelligence. The platform enables users to input questions and receive responses based on relevant Islamic teachings, making it easier to seek guidance in various matters of life.
+**Fatwa with AI** is an intelligent Islamic Q&A web application that allows users to ask religious questions and receive AI-generated responses. It aims to provide fast, accessible, and authentic Islamic guidance using advanced AI and modern web technologies.
 
-The site is built with a user-friendly interface and leverages AI models to provide thoughtful answers while ensuring Islamic guidelines are respected. Users can interact with the AI to inquire about general or specific issues in real-time.
+This project combines the power of **Next.js** (frontend) and **Node.js + Express + MongoDB** (backend) with AI to deliver answers rooted in Islamic knowledge.
 
-## Features
+---
 
-- **AI-Powered Responses**: The app uses an AI model to generate responses based on Islamic principles.
-- **Simple User Interface**: Easy-to-navigate interface for quick and hassle-free interaction.
-- **Real-Time Fatwa Generation**: Provides responses on demand, covering various topics.
-- **Respect for Islamic Guidelines**: All generated responses align with Islamic jurisprudence (fiqh).
-- **Continuous Learning**: The AI improves its understanding over time to provide better responses.
+## ⚙️ Tech Stack
 
-## Technologies Used
+### 🌐 Frontend
 
-- **Frontend**: Next.js
-- **Backend**: Node.js
-- **Deployment**: Vercel
-- **AI Models**: Integrated AI models for generating fatwas
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Library:** Shadcn/UI, NextUI
+- **State Management:** React Hooks
+- \*\*AI Use Google gemini
 
-## Installation
+---
 
-To run this project locally, follow these steps:
+## ✨ Features
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/fatwa-with-ai.git
+- 🧠 **AI-Powered Fatwa System**: Submit Islamic questions and receive automated responses.
+- 👤 **User Authentication**: Secure login & registration system.
+- 📜 **User Dashboard**: View submitted questions and received answers.
+- ⏰ **Date & Time Tracking**: Every question includes a timestamp.
+- ❤️ **Like & Comment System**: Engage with others' questions.
+- 🔎 **Tagging System**: Clickable tags to filter related content.
+- 📱 **Responsive Design**: Fully optimized for mobile and desktop users.
+- 🌙 **Modern UI**: Built with Tailwind, Shadcn, and NextUI for an elegant and clean interface.
+
+---
