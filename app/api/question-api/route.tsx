@@ -17,7 +17,7 @@ export const POST = async (req: Request) => {
       };
       console.error("Error status:", apiError.response.status);
       console.error("Error details:", apiError.response.data?.errorDetails);
-      // Log field violations if they exist
+
       if (apiError.response.data?.errorDetails) {
         apiError.response.data.errorDetails.forEach((detail) => {
           console.error("Field Violations:", detail.fieldViolations);
